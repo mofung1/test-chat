@@ -1,0 +1,58 @@
+version: '2'
+
+networks:
+  tptest:
+    driver: bridge
+
+services:
+
+  nginx:
+    container_name: tptest-nginx
+    image: nginx
+    depends_on:
+      - "php"
+    volumes:
+      - ../server:/server
+      - ./nginx/conf.d:/etc/nginx/conf.d
+      - ../data/nginx/logs:/logs
+    networks:
+      - tptest
+    ports:
+      - "99:80"
+
+  php:
+    container_name: tptest-php
+    build: 
+      context: ./php/.
+    image: tptest-php:latest
+    volumes:
+      - ../server:/server
+      - ./php/docker-php-ext-xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+    networks:
+      - tptest
+    ports:
+      - "9099:9000"
+    
+
+  mysql:
+    container_name: tptest-mysql
+    image: "mysql:5.7.21"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: tptest
+      MYSQL_PASSWORD: tptest
+    volumes:
+      - ../data/mysql:/var/lib/mysql
+    networks:
+      - tptest
+    ports:
+      - "3399:3306"
+
+  redis:
+    container_name: tptest-redis
+    image: redis:latest
+    restart: always
+    networks:
+      - tptest
+    ports:
+      - "6399:6379"

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PhpIncludePathManager">
+    <include_path>
+      <path value="$PROJECT_DIR$/server/vendor/composer" />
+      <path value="$PROJECT_DIR$/server/vendor/topthink/think-installer" />
+      <path value="$PROJECT_DIR$/server/vendor/aliyun-php-sdk-core/Auth" />
+      <path value="$PROJECT_DIR$/server/vendor/aliyun-php-sdk-core/Http" />
+      <path value="$PROJECT_DIR$/server/vendor/aliyun-php-sdk-core/Profile" />
+      <path value="$PROJECT_DIR$/server/vendor/aliyun-php-sdk-core/Regions" />
+      <path value="$PROJECT_DIR$/server/vendor/aliyun-php-sdk-core/UnitTest" />
+      <path value="$PROJECT_DIR$/server/vendor/aliyun-php-sdk-core/Exception" />
+      <path value="$PROJECT_DIR$/server/vendor/aliyun-php-sdk-core/Autoloader" />
+      <path value="$PROJECT_DIR$/server/vendor/GatewayWorker/vendor" />
+      <path value="$PROJECT_DIR$/server/vendor/GatewayWorker/Applications" />
+    </include_path>
+  </component>
+</project>
