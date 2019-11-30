@@ -1,4 +1,4 @@
-<?php /*a:1:{s:47:"/server/application/index/view/index/index.html";i:1574477960;}*/ ?>
+<?php /*a:1:{s:47:"/server/application/index/view/index/index.html";i:1575043563;}*/ ?>
 <!doctype html>
 <html>
 <head>
@@ -50,12 +50,16 @@
 
         var fromid = <?php echo htmlentities($fromid); ?>;
         var toid = <?php echo htmlentities($toid); ?>;
-        console.log(fromid);
-        console.log(toid);
+        // console.log(fromid);
+        // console.log(toid);
         var ws = new WebSocket("ws://127.0.0.1:8282");
         ws.onmessage = function (e) {
             var message = eval("("+e.data+")");
             switch (message.type) {
+                case 'init':
+                    var bild = '{"type":"bind","fromid":"'+fromid+'","toid":"'+toid+'"}';
+                    ws.send(bild);
+                    break;
                 case 'text':
                     if (toid == message.fromid){
                         $('.chat-content').append('<div class="chat-text section-left flex">\n' + '<span class="char-img" style="background-image: url(http://index.tptest.com:99/static/newcj/img/123.jpg)">' +
@@ -63,9 +67,8 @@
                     }
 
                     break;
-                case 'init':
-                    var bild = '{"type":"bind","fromid":"'+fromid+'","toid":"'+toid+'"}';
-                    ws.send(bild);
+                case 'save':
+                    saveData(message);
                     break;
             }
         }
@@ -82,7 +85,20 @@
             $('.send-input').val("");
         });
 
-        
+        function saveData(message) {
+            $.ajax({
+                type: "post",
+                url: "<?php echo url('chat/saveText'); ?>",
+                data: message,
+                dataType: "json",
+                error: function () {
+                    console.log("服务器繁忙, 请联系管理员!");
+                },
+                success: function (data) {
+                    // console.log("正在沟通");
+                }
+            });
+        }
         
     </script>
 </body>
